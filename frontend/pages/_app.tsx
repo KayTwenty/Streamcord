@@ -2,8 +2,9 @@ import { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { useState } from 'react';
 import UserProvider from '@/contexts/UserContext';
+import { WebSocketProvider } from '@/contexts/WebsocketContext';
+import "../styles/globals.css";
 import NextNProgress from 'nextjs-progressbar';
-import Loader from "@/components/global/Loader";
 
 function MyApp({ Component, pageProps }: AppProps) {
     const [queryClient] = useState(() => new QueryClient());
@@ -12,8 +13,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <QueryClientProvider client={queryClient}>
             <UserProvider>
                 <NextNProgress />
-                <Loader />
-                <h1>Streamcord</h1>
+                <WebSocketProvider>
+                    <Component {...pageProps} />
+                </WebSocketProvider>
             </UserProvider>
         </QueryClientProvider>
     )
