@@ -3,6 +3,7 @@ import express from "express";
 import session from "express-session";
 import http from "http";
 import { Server } from "socket.io";
+import { router as authRoutes } from "./api/authRoutes";
 
 import { logger } from "./config/logger";
 import { corsMiddleware } from "./middleware/corsMiddleware";
@@ -23,6 +24,8 @@ app.use(cors(corsMiddleware));
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
+
+app.use("/auth", authRoutes);
 
 server.listen(process.env.PORT || 8080, () => {
     (async function () {
